@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather api app</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="search">
+            <input type="text" placeholder="please enter city name">
+            <button><img src="searshh.png" ></button>
+        </div>
+        <div class="Weather">
+            <img src="clouds.png" class="Weather-icon">
+            <h1 class="temp">22°c</h1>
+            <h2 class="city">Jeddah</h2>
+            <div class="info">
+                <div class="col">
+                    <img src="windy.png" >
+                    <div>
+                        <p class="windy">15 km/h</p>
+                        <p>wind Speed</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="humidity.png" >
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script >
+let apiKey= "3f9e31c7766a5732213f27df297bf3fd";
+let apiurl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
+    let searchCity = document.querySelector(".search input");
+    let searchbutton = document.querySelector(".search button");
+async function checkweather(city){
+        let response = await fetch(apiurl + city + `&appid=${apiKey}`);
+        let data = await  response.json();
+        document.querySelector(".city").innerHTML = data.name;
+        document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°c";
+        document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+        document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
+    }
+    searchbutton.addEventListener("click" , ()=> {
+        checkweather(searchCity.value);
+    })
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="form" method="post">
+        <input placeholder="name" id="name">
+        <input placeholder="content" id="content">
+        <button>Post</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        let form = document.getElementById("form")
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault()
+            let name = document.getElementById("name").value
+            let content = document.getElementById("content").value
+
+            fetch("https://62d3e34acd960e45d44f7ccf.mockapi.io/myBloog", {
+                method: "POST",
+                body: JSON.stringify({
+                    name: name,
+                    content: content
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+
+                .then(res => {
+                    return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    let result = document.getElementById("result")
+                    result.innerHTML = `<p>the title of post is ${data.name}</p>
+                    <p> the content of post is ${data.content}</p>`
+                })
+        })
+    </script>
+</body>
+
+</html> -->
